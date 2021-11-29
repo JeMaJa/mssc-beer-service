@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 
 @RestController
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1/beer")
 public class BeerController {
 	
-	@GetMapping("/{beerId}")
-	public ResponseEntity<BeerDto> getBeerById(@PathVariable("beerID") UUID beerId){
+	@GetMapping({"/{beerId}"})
+	public ResponseEntity getBeerById(@PathVariable("beerId") UUID beerId){
 		// to do implement
 		return new ResponseEntity<>(BeerDto.builder().build(),HttpStatus.OK);
 	}
@@ -27,13 +27,13 @@ public class BeerController {
 	@PostMapping
 	public ResponseEntity saveNewBeer(@RequestBody BeerDto beerDto) {
 		// todo implement
-		return new ResponseEntity(HttpStatus.CREATED);
+		return new ResponseEntity<BeerDto>(HttpStatus.CREATED);
 	}
 	
-	@PutMapping
+	@PutMapping({"/{beerId}"})
 	public ResponseEntity updateBeerById(@PathVariable("beerID") UUID beerId, @RequestBody BeerDto beerDto) {
 		//todo implement
-		return new ResponseEntity(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<BeerDto>(HttpStatus.NO_CONTENT);
 	}
 
 }
