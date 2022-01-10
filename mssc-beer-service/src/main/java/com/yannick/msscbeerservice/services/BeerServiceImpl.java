@@ -4,45 +4,43 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.yannick.msscbeerservice.domain.Beer;
+import com.yannick.msscbeerservice.repositories.BeerRepository;
+import com.yannick.msscbeerservice.web.controller.NotFoundException;
+import com.yannick.msscbeerservice.web.mappers.BeerMapper;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 import com.yannick.msscbeerservice.web.model.BeerStyleEnum;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
+@RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
 
-	@Override
-	public BeerDto getBeerById(UUID beerId) {
-		// TODO Auto-generated method stub
-		return BeerDto.builder().id(UUID.randomUUID())
-				.beerName("Galaxy Cat")
-				.beerStyle(BeerStyleEnum.IPA).build();
-	}
+    @Override
+    public BeerDto getById(UUID beerId) {
+        return beerMapper.beerToBeerDto(
+                beerRepository.findById(beerId).orElseThrow(NotFoundException::new)
+        );
+    }
 
-	public BeerDto saveNewBeer(BeerDto beerDto) {
-		
-		return BeerDto.builder().id(UUID.randomUUID())
-				.build();
-	}
+    @Override
+    public BeerDto saveNewBeer(BeerDto beerDto) {
+        return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));
+    }
 
-	
-	
+    @Override
+    public BeerDto updateBeer(UUID beerId, BeerDto beerDto) {
+        Beer beer = beerRepository.findById(beerId).orElseThrow(NotFoundException::new);
 
-	@Override
-	public void updateBeer(UUID beerId, BeerDto beerDto) {
-		// TODO Auto-generated method stub
-		
-	}
+        beer.setBeerName(beerDto.getBeerName());
+        beer.setBeerStyle(beerDto.getBeerStyle().name());
+        beer.setPrice(beerDto.getPrice());
+        beer.setUpc(beerDto.getUpc());
 
-	@Override
-	public void deleteBeer(UUID beerId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
-
+        return beerMapper.beerToBeerDto(beerRepository.save(beer));
+    }
 }
  

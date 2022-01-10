@@ -11,6 +11,10 @@ import com.yannick.msscbeerservice.repositories.BeerRepository;
 @Component
 public class BeerLoader implements CommandLineRunner {
 
+	public static final String BEER_1_UPC = "0631234200036";
+    public static final String BEER_2_UPC = "0631234300019";
+    public static final String BEER_3_UPC = "0083783375213";
+    
 	@Autowired
 	public BeerRepository beerRepository;
 	@Override
@@ -26,7 +30,7 @@ public class BeerLoader implements CommandLineRunner {
 					.minOnHand(20)
 					.price(new BigDecimal("12.95"))
 					.quantityToBrew(200)
-					.upc(12000000981L)
+					.upc(BEER_1_UPC)
 					.build());
 			beerRepository.save(Beer.builder()
 					.beerName("Galaxy Cat")
@@ -34,7 +38,17 @@ public class BeerLoader implements CommandLineRunner {
 					.minOnHand(20)
 					.price(new BigDecimal("11.95"))
 					.quantityToBrew(200)
-					.upc(12000000982L)
+					.upc(BEER_2_UPC)
+                    .price(new BigDecimal("11.95"))
+                    .build());
+
+            beerRepository.save(Beer.builder()
+                    .beerName("No Hammers On The Bar")
+                    .beerStyle("PALE_ALE")
+                    .quantityToBrew(200)
+                    .minOnHand(12)
+                    .upc(BEER_3_UPC)
+                    .price(new BigDecimal("11.95"))
 					.build());
 		}
 	//	System.out.println("Loaded beers: " + beerRepository.count());

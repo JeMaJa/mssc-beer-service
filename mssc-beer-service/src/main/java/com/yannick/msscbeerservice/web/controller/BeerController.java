@@ -25,31 +25,28 @@ public class BeerController {
 	@Autowired
 	private BeerService beerService;
 	
+	
+	
 	public BeerService getBeerService() {
 		return beerService;
 	}
 	
 	@GetMapping({"/{beerId}"})
 	public ResponseEntity getBeerById(@PathVariable("beerId") UUID beerId){
-		// to do implement
-		return new ResponseEntity<>(BeerDto.builder().build(),HttpStatus.OK);
+		return new ResponseEntity<>(beerService.getById(beerId), HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<BeerDto> saveNewBeer(@RequestBody @Validated BeerDto beerDto) {
-		BeerDto beerSaved = beerService.saveNewBeer(beerDto);
-		HttpHeaders headers = new HttpHeaders();
-		// to do, make full URL in the location
-		//headers.add("Location", "/api/v1/beer/"+beerSaved.getId().toString());
+	
 		
-		return new ResponseEntity(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(beerService.saveNewBeer(beerDto), HttpStatus.CREATED);
 	}
 	
 	 @PutMapping("/{beerId}")
 	    public ResponseEntity<BeerDto> updateBeerById(@PathVariable("beerId") UUID beerId, @RequestBody @Validated BeerDto beerDto){
 
-	        //todo impl
-	        return new ResponseEntity<BeerDto>(HttpStatus.NO_CONTENT);
+		 return new ResponseEntity<>(beerService.saveNewBeer(beerDto), HttpStatus.NO_CONTENT);
 	 }
 
 }

@@ -44,7 +44,7 @@ public class Beer {
 	private Timestamp lastModifiedDate;
 	private String beerName;
 	private String beerStyle;
-	private Long upc;
+	private String upc;
 	private BigDecimal price;
 	
 	private Integer minOnHand;

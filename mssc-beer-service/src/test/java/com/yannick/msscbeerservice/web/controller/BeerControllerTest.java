@@ -15,9 +15,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yannick.msscbeerservice.bootstrap.BeerLoader;
 import com.yannick.msscbeerservice.services.BeerService;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 import com.yannick.msscbeerservice.web.model.BeerStyleEnum;
@@ -37,7 +40,7 @@ class BeerControllerTest {
 	
 	@Test
 	void getBeerById() {
-		
+		given(beerService.getById(any())).willReturn(getValidBeerDto());
 		try {
 			mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
@@ -51,6 +54,7 @@ class BeerControllerTest {
 	void saveNewBeer() throws Exception {
 		BeerDto beerDto = getValidBeerDto();
         String beerDtoJson = null;
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
 		try {
 			beerDtoJson = objectMapper.writeValueAsString(beerDto);
 		} catch (JsonProcessingException e) {
@@ -66,6 +70,7 @@ class BeerControllerTest {
 	}
 	@Test
 	void updateBeerById() throws Exception {
+		given(beerService.updateBeer(any(), any())).willReturn(getValidBeerDto());
 		 BeerDto beerDto = getValidBeerDto();
 	        String beerDtoJson = objectMapper.writeValueAsString(beerDto);
 
@@ -79,7 +84,7 @@ class BeerControllerTest {
 		return BeerDto.builder()
 				.beerName("My test beer")
 				.beerStyle(BeerStyleEnum.PILSNER)
-				.upc(100L)
+				.upc(BeerLoader.BEER_1_UPC)
 				//.id(UUID.randomUUID())
 				.price(new BigDecimal("1.0"))
 				.build();
