@@ -2,6 +2,7 @@ package com.yannick.msscbeerservice.services;
 
 import java.util.UUID;
 
+
 import org.springframework.stereotype.Service;
 
 import com.yannick.msscbeerservice.domain.Beer;
@@ -10,15 +11,14 @@ import com.yannick.msscbeerservice.web.controller.NotFoundException;
 import com.yannick.msscbeerservice.web.mappers.BeerMapper;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
-    
-	private BeerRepository beerRepository;
-    
-    private BeerMapper beerMapper;
+    private final BeerRepository beerRepository;
+    private final BeerMapper beerMapper;
 
     @Override
     public BeerDto getById(UUID beerId) {

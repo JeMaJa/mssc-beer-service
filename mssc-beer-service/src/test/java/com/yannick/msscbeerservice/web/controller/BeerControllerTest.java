@@ -36,7 +36,7 @@ class BeerControllerTest {
 	
 	//not in course but needed for test to pass
 	@MockBean
-	private BeerService beerService;
+	BeerService beerService;
 	
 	@Test
 	void getBeerById() {
