@@ -17,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -40,7 +41,7 @@ class BeerControllerTest {
 	
 	@Test
 	void getBeerById() {
-		given(beerService.getById(any())).willReturn(getValidBeerDto());
+		given(beerService.getById(any(), anyBoolean())).willReturn(getValidBeerDto());
 		try {
 			mockMvc.perform(get("/api/v1/beer/" + UUID.randomUUID().toString()).accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
