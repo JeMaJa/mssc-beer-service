@@ -1,6 +1,5 @@
 package com.yannick.msscbeerservice.web.mappers;
 
-import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -9,7 +8,7 @@ import com.yannick.msscbeerservice.services.inventory.BeerInventoryService;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 
 import lombok.RequiredArgsConstructor;
-//@Mapper(componentModel = "spring")
+@Component
 @RequiredArgsConstructor
 public abstract class BeerMapperDecorator implements BeerMapper {
     private BeerInventoryService beerInventoryService;

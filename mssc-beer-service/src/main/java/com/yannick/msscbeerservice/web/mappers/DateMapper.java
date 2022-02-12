@@ -1,5 +1,6 @@
 package com.yannick.msscbeerservice.web.mappers;
 
+import org.mapstruct.Mapper;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -9,7 +10,7 @@ import java.time.ZoneOffset;
 /**
  * Created by jt on 2019-05-25.
  */
-@Component
+@Mapper(componentModel = "spring")
 public class DateMapper {
     public OffsetDateTime asOffsetDateTime(Timestamp ts){
         if (ts != null){

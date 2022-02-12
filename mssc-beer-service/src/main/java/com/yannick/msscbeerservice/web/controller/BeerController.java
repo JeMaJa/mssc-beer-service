@@ -21,22 +21,21 @@ import com.yannick.msscbeerservice.web.mappers.BeerMapper;
 import com.yannick.msscbeerservice.web.model.BeerDto;
 import com.yannick.msscbeerservice.web.model.BeerPagedList;
 import com.yannick.msscbeerservice.web.model.BeerStyleEnum;
-import com.yannick.msscbeerservice.services.BeerService;
 
-@RestController
+import lombok.RequiredArgsConstructor;
+
+import com.yannick.msscbeerservice.services.BeerService;
+@RequiredArgsConstructor
 @RequestMapping("/api/v1/beer")
+@RestController
 public class BeerController {
+
 	private static final Integer DEFAULT_PAGE_NUMBER =0;
 	private static final Integer DEFAULT_PAGE_SIZE = 25;
+
+	private final BeerService beerService;
 	
-	@Autowired
-	private BeerService beerService;
 	
-	private BeerMapper beerMapper;
-	
-	public BeerService getBeerService() {
-		return beerService;
-	}
 	
     @GetMapping(produces = { "application/json" })
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,

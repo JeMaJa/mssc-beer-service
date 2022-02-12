@@ -3,6 +3,7 @@ package com.yannick.msscbeerservice.services;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,15 @@ import com.yannick.msscbeerservice.web.model.BeerDto;
 import com.yannick.msscbeerservice.web.model.BeerPagedList;
 import com.yannick.msscbeerservice.web.model.BeerStyleEnum;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+//@AllArgsConstructor
 @Service
 public class BeerServiceImpl implements BeerService {
     private final BeerRepository beerRepository;
-    private BeerMapper beerMapper;
+    private final BeerMapper beerMapper;
 
     @Override
     public BeerPagedList listBeers(String beerName, BeerStyleEnum beerStyle, PageRequest pageRequest, Boolean showInventoryOnHand) {
