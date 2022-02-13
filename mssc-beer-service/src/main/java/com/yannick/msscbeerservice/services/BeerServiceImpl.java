@@ -75,7 +75,7 @@ public class BeerServiceImpl implements BeerService {
         return beerPagedList;
     }
     
-    @Cacheable(cacheNames = "beerUpcCache", key = "#beerId", condition = "#showInventoryOnHand == false ")
+    @Cacheable(cacheNames = "beerUpcCache", key = "#upc", condition = "#showInventoryOnHand == false ")
     @Override
     public BeerDto getByUpc(String upc, Boolean showInventoryOnHand) {
     	if (showInventoryOnHand) {
